@@ -1,0 +1,78 @@
+name: Website Redesign Project
+description: Complete redesign of company website with new features
+start_date: 2024-01-15
+end_date: 2024-02-15
+
+settings:
+  work_hours: "09:00-17:00"
+  work_days: ["mon", "tue", "wed", "thu", "fri"]
+  buffer_time: "15m"
+  max_tasks_per_day: 5
+  avoid_overlap: true
+
+tasks:
+  - name: Design Homepage Mockup
+    description: Create wireframes and visual design for the new homepage
+    duration: 4h
+    priority: 5
+    due_date: 2024-01-20
+    tags: ["design", "frontend"]
+
+  - name: Implement Navigation
+    description: Build responsive navigation bar with dropdown menus
+    duration: 3h
+    priority: 4
+    due_date: 2024-01-22
+    tags: ["frontend", "javascript"]
+
+  - name: Database Schema Update
+    description: Design and implement new database schema for user profiles
+    duration: 2h
+    priority: 5
+    due_date: 2024-01-18
+    tags: ["backend", "database"]
+
+  - name: API Endpoint Development
+    description: Create REST API endpoints for user management
+    duration: 3h
+    priority: 4
+    tags: ["backend", "api"]
+
+  - name: Content Migration
+    description: Migrate existing content to new CMS
+    duration: 6h
+    priority: 3
+    due_date: 2024-01-25
+    tags: ["content", "migration"]
+
+  - name: Testing and QA
+    description: Write unit tests and perform quality assurance
+    duration: 4h
+    priority: 4
+    due_date: 2024-02-01
+    tags: ["testing", "qa"]
+
+  - name: User Authentication
+    description: Implement OAuth and session management
+    duration: 5h
+    priority: 5
+    tags: ["backend", "security"]
+
+  - name: Mobile Responsive Design
+    description: Ensure all pages work well on mobile devices
+    duration: 3h
+    priority: 3
+    tags: ["frontend", "responsive"]
+
+  - name: Performance Optimization
+    description: Optimize page load times and database queries
+    duration: 4h
+    priority: 2
+    tags: ["backend", "performance"]
+
+  - name: Final Deployment
+    description: Deploy the new website to production servers
+    duration: 2h
+    priority: 5
+    due_date: 2024-02-10
+    tags: ["devops", "deployment"]
