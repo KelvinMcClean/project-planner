@@ -2,6 +2,7 @@ package scheduler
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -20,6 +21,7 @@ type ScheduledTask struct {
 	Duration    time.Duration
 	Priority    int
 	Tags        []string
+	DependsOn   []string // names of tasks this task depends on
 }
 
 // ScheduleResult contains the scheduling results
@@ -27,15 +29,19 @@ type ScheduleResult struct {
 	ScheduledTasks []ScheduledTask
 	Unscheduled    []string // names of tasks that couldn't be scheduled
 	Conflicts      []string // any conflicts detected
+	DependencyIssues []string // tasks that couldn't be scheduled due to dependency issues
 }
 
-// WorkHours represents daily working hours
+// WorkHours represents daily working hours for a specific day
 type WorkHours struct {
 	StartHour int
 	StartMin  int
 	EndHour   int
 	EndMin    int
 }
+
+// DayWorkHours maps day names to their work hours
+type DayWorkHours map[string]WorkHours
 
 // ParseWorkHours parses a work hours string like "09:00-17:00"
 func ParseWorkHours(wh string) (WorkHours, error) {
@@ -45,6 +51,22 @@ func ParseWorkHours(wh string) (WorkHours, error) {
 		return WorkHours{}, fmt.Errorf("invalid work hours format, use HH:MM-HH:MM: %w", err)
 	}
 	return whs, nil
+}
+
+// ParseDayWorkHoursMap parses a map of day names to work hours strings
+func ParseDayWorkHoursMap(workHoursMap map[string]string) (DayWorkHours, error) {
+	dwh := make(DayWorkHours)
+	
+	for day, hoursStr := range workHoursMap {
+		wh, err := ParseWorkHours(hoursStr)
+		if err != nil {
+			return nil, fmt.Errorf("invalid work hours for %s: %w", day, err)
+		}
+		
+		dwh[day] = wh
+	}
+	
+	return dwh, nil
 }
 
 // TimeOfDay represents a time within a day (hour and minute)

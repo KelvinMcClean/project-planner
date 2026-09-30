@@ -4,10 +4,21 @@ start_date: 2024-01-15
 end_date: 2024-02-15
 
 settings:
-  work_hours: "09:00-17:00"
+  # Daily customizable work hours
+  work_hours:
+    mon: "09:00-17:00"
+    tue: "08:00-16:00"
+    wed: "09:00-17:00"
+    thu: "09:00-17:00"
+    fri: "09:00-13:00"  # Half day Friday
+  
+  # Or use a single work_hours string for all days:
+  # work_hours: "09:00-17:00"
+  
   work_days: ["mon", "tue", "wed", "thu", "fri"]
   buffer_time: "15m"
   max_tasks_per_day: 5
+  hours_per_week: 40  # Limit to 40 hours per week
   avoid_overlap: true
 
 tasks:
@@ -24,6 +35,7 @@ tasks:
     priority: 4
     due_date: 2024-01-22
     tags: ["frontend", "javascript"]
+    depends_on: ["Design Homepage Mockup"]
 
   - name: Database Schema Update
     description: Design and implement new database schema for user profiles
@@ -37,6 +49,7 @@ tasks:
     duration: 3h
     priority: 4
     tags: ["backend", "api"]
+    depends_on: ["Database Schema Update"]
 
   - name: Content Migration
     description: Migrate existing content to new CMS
@@ -44,6 +57,7 @@ tasks:
     priority: 3
     due_date: 2024-01-25
     tags: ["content", "migration"]
+    depends_on: ["API Endpoint Development"]
 
   - name: Testing and QA
     description: Write unit tests and perform quality assurance
@@ -51,6 +65,7 @@ tasks:
     priority: 4
     due_date: 2024-02-01
     tags: ["testing", "qa"]
+    depends_on: ["Implement Navigation", "Content Migration"]
 
   - name: User Authentication
     description: Implement OAuth and session management
@@ -63,6 +78,7 @@ tasks:
     duration: 3h
     priority: 3
     tags: ["frontend", "responsive"]
+    depends_on: ["Implement Navigation"]
 
   - name: Performance Optimization
     description: Optimize page load times and database queries
@@ -76,3 +92,4 @@ tasks:
     priority: 5
     due_date: 2024-02-10
     tags: ["devops", "deployment"]
+    depends_on: ["Testing and QA", "Performance Optimization"]

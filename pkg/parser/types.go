@@ -13,6 +13,7 @@ type Task struct {
 	Priority    int           `yaml:"priority,omitempty"`
 	DueDate     *time.Time    `yaml:"due_date,omitempty"`
 	Tags        []string      `yaml:"tags,omitempty"`
+	DependsOn   []string      `yaml:"depends_on,omitempty"` // names of tasks this task depends on
 }
 
 // Project represents the entire project with tasks and settings
@@ -27,12 +28,13 @@ type Project struct {
 
 // Settings contains scheduling preferences
 type Settings struct {
-	WorkHours       string   `yaml:"work_hours,omitempty"`       // e.g., "09:00-17:00"
-	WorkDays        []string `yaml:"work_days,omitempty"`        // e.g., ["mon", "tue", "wed", "thu", "fri"]
-	BufferTime      string   `yaml:"buffer_time,omitempty"`      // e.g., "30m"
-	MaxTasksPerDay  int      `yaml:"max_tasks_per_day,omitempty"` // max tasks to schedule per day
-	PreferredSlots  []string `yaml:"preferred_slots,omitempty"`  // preferred time slots
-	AvoidOverlap    bool     `yaml:"avoid_overlap,omitempty"`    // avoid overlapping with existing events
+	WorkHours       map[string]string `yaml:"work_hours,omitempty"`       // e.g., {"mon": "09:00-17:00", "tue": "10:00-18:00"}
+	WorkDays        []string         `yaml:"work_days,omitempty"`        // e.g., ["mon", "tue", "wed", "thu", "fri"]
+	BufferTime      string           `yaml:"buffer_time,omitempty"`      // e.g., "30m"
+	MaxTasksPerDay  int              `yaml:"max_tasks_per_day,omitempty"` // max tasks to schedule per day
+	HoursPerWeek    float64          `yaml:"hours_per_week,omitempty"`   // maximum hours to schedule per week
+	PreferredSlots  []string         `yaml:"preferred_slots,omitempty"`  // preferred time slots
+	AvoidOverlap    bool             `yaml:"avoid_overlap,omitempty"`    // avoid overlapping with existing events
 }
 
 // ParseDuration parses a duration string like "2h", "30m", "1h30m" into time.Duration
